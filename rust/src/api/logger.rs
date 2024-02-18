@@ -7,7 +7,6 @@ use log::{error, info, warn, Log, Metadata, Record};
 use parking_lot::RwLock;
 use simplelog::*;
 
-
 use crate::api::LogEntry;
 
 static INIT_LOGGER_ONCE: Once = Once::new();
@@ -31,7 +30,7 @@ pub fn init_logger() {
 
         CombinedLogger::init(vec![
             Box::new(SendToDartLogger::new(level)),
-//            Box::new(MyMobileLogger::new(level)),
+            //            Box::new(MyMobileLogger::new(level)),
             // #[cfg(not(any(target_os = "android", target_os = "ios")))]
             TermLogger::new(
                 level,
@@ -99,15 +98,14 @@ impl SendToDartLogger {
             Level::Error => Self::LEVEL_ERROR,
         };
 
-        
         let whole_msg = format!("{}", record.args());
         let tag;
         let user_id;
         let user;
         let msg;
 
-        if whole_msg.starts_with("com.mtangle.mqttchat") {
-            //println!("WHOLE MESSAGE STARTS WITH com.mtangle.mqttchat");
+        if whole_msg.starts_with("com.example.mqttChatApp") {
+            //println!("WHOLE MESSAGE STARTS WITH com.example.mqttChatApp");
             let vector: Vec<&str> = whole_msg.split("@@@").collect();
             //Position 1: Domain
             //Position 2: Tag
@@ -117,14 +115,18 @@ impl SendToDartLogger {
             //Position 4: User
             user = format!("{}", vector[3]).to_string();
             //Position 5: Message
-            msg = format!("{}", vector[4]);    
+            msg = format!("{}", vector[4]);
         } else {
-            tag = record.file().unwrap_or_else(|| record.target()).to_owned().to_string();
+            tag = record
+                .file()
+                .unwrap_or_else(|| record.target())
+                .to_owned()
+                .to_string();
             user_id = "".into();
             user = "".into();
-            msg = format!("{}", record.args());     
+            msg = format!("{}", record.args());
         }
-        
+
         LogEntry {
             time_millis,
             level,

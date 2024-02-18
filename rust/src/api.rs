@@ -54,7 +54,7 @@ pub fn publish_message(
     user: String,
     message: String,
 ) -> Result<String> {
-    // let domain: String = String::from("com.mtangle.mqttchat");
+    // let domain: String = String::from("com.example.mqttChatApp");
     // let full_message = domain + "@@@" + &tag + "@@@" + &user_id + "@@@" + &user + "@@@" + &message;
 
     // let rt = Runtime::new().unwrap();
@@ -122,8 +122,8 @@ pub fn greet() -> String {
     info!("INFO    --------------- hello I am a log from Rust");
     error!("ERROR  --------------- hello I am a log from Rust");
 
-    info!("com.mtangle.mqttchat@@@MQTT_EXAMPLE@@@82091008-a484-4a89-ae75-a22bf8d6f3ac@@@Kai@@@This is a first test message." );
-    info!("com.mtangle.mqttchat@@@MQTT_EXAMPLE@@@82091008-a484-4a89-ae75-a22bf8d6f3bb@@@Karina@@@This is a second test message." );
+    info!("com.example.mqttChatApp@@@MQTT_EXAMPLE@@@82091008-a484-4a89-ae75-a22bf8d6f3ac@@@Kai@@@This is a first test message." );
+    info!("com.example.mqttChatApp@@@MQTT_EXAMPLE@@@82091008-a484-4a89-ae75-a22bf8d6f3bb@@@Karina@@@This is a second test message." );
 
     "Hello from Rust! 🦀".into()
 }
